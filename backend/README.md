@@ -52,6 +52,195 @@ Setting the `FLASK_ENV` variable to `development` will detect file changes and r
 
 Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` directory and the `__init__.py` file to find the application. 
 
+
+## Endpoints
+
+```
+GET '/categories'
+GET '/questions'
+DELETE '/questions/<question_id>'
+POST '/questions'
+POST '/questions/search'
+GET '/categories/<category_id>/questions'
+POST '/quizzes'
+
+GET '/categories'
+- Fetches all the categories
+- Request Arguments: None
+- Response
+{
+  "categories": [
+    {
+      "id": 1,
+      "type": "Science"
+    },
+    {
+      "id": 2,
+      "type": "Art"
+    },
+  ],
+  "success": True
+}
+**************************************************************************************************************************************************
+
+GET '/questions'
+- Fetches all the questions and categories
+- Request Arguments: None
+- Response
+{
+  "categories": [
+    {
+      "id": 1,
+      "type": "Science"
+    },
+    {
+      "id": 2,
+      "type": "Art"
+    },
+  ],
+  "questions": [
+    {
+      "answer": "Apollo 13",
+      "category": 5,
+      "difficulty": 4,
+      "id": 2,
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    },
+    {
+      "answer": "Tom Cruise",
+      "category": 5,
+      "difficulty": 4,
+      "id": 4,
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    },
+  ],
+  "total_questions": 2
+}
+******************************************************************************************************************************************************
+
+DELETE '/questions/<question_id>'
+- Deletes the question with the id specified in the path parameter
+- Request Arguments: question_id
+- Response
+{
+  "success": True,
+  "deleted_id": 13
+}
+********************************************************************************************************************************************************
+
+POST '/questions'
+- Creates a new question
+- Request Body: {
+    "question": "What is my childhood's nickname?",
+    "answer": "k-Flat",
+    "difficulty": 1,
+    "category": 2
+  }
+- Response
+{
+  "message": "Question added successfully",
+  "success": True
+}
+*********************************************************************************************************************************************************
+
+POST '/questions/search'
+- Fetches all questions that have the search term
+- Request Body: {
+    'searchTerm': 'something'
+  }
+- Response
+{
+  "questions": [
+    {
+      "answer": "Oxygen",
+      "category": 1,
+      "difficulty": 1,
+      "id": 19,
+      "question": "Something human cannot live without?"
+    }
+  ],
+  "totalQuestions": 1,
+  "success": True
+}
+
+GET '/categories/<category_id>/questions'
+- Fetches all questions for a specified category
+- Request Arguments: category_id
+- Response:
+{
+  "questions": [
+    {
+      "answer": "The Liver",
+      "category": 1,
+      "difficulty": 4,
+      "id": 20,
+      "question": "What is the heaviest organ in the human body?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    }
+  ],
+  "total_questions": 2
+}
+
+POST '/quizzes'
+- Fetches a random question
+- Request Body: {
+	"previous_questions": [],
+	"quiz_category": {
+		"type": "Sports",
+		"id": 6
+	}
+} 
+- Response:
+{
+  "question": {
+    "answer": "Brazil",
+    "category": 6,
+    "difficulty": 3,
+    "id": 10,
+    "question": "Which is the only team to play in every soccer World Cup tournament?"
+  },
+  "success": True
+}
+
+Find the description of errors below:
+
+400 (Bad Request)
+  {
+    "success": False, 
+    "error": 400,
+    "message": "Bad request"
+  }
+
+404 (Not Found)
+  {
+    "success": False, 
+    "error": 404,
+    "message": "Item not found"
+  }
+
+422 (Unprocessable)
+  {
+    "success": False, 
+    "error": 422,
+    "message": "unprocessable"
+  }
+
+500 (Internal server error)
+  {
+    "success": False, 
+    "error": 500,
+    "message": "server error"
+  }
+```
+
+
+
 ## Tasks
 
 One note before you delve into your tasks: for each endpoint you are expected to define the endpoint and response data. The frontend will be a plentiful resource because it is set up to expect certain endpoints and response data formats already. You should feel free to specify endpoints in your own way; if you do so, make sure to update the frontend or you will get some unexpected behavior. 
